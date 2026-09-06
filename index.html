@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>evelyne. — Suivi accompagnement digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{background:#0d0d0d;color:#EDEDED;margin:0}
+body{font-family:'Lato','Segoe UI',-apple-system,sans-serif;line-height:1.55;padding:22px}
+#ev-app{max-width:1180px;margin:0 auto;background:#161616;border-radius:14px;overflow:hidden;
+  border:1px solid #2a2a2a}
+#ev-app .brand,#ev-app h2,#ev-app h3,#ev-app .kpi .val,#ev-app .flag .n,
+#ev-app .q,#ev-app .cli,#ev-app .foot .e,#ev-app .curve text,
+#ev-app .com-nom,#ev-app .dos-nom,#ev-app .bar .seg{font-family:'Sora','Segoe UI',sans-serif}
+#ev-app .top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  padding:18px 26px;background:#1F1F1F;border-bottom:1px solid #2a2a2a}
+#ev-app .brand{font-size:20px;font-weight:500;letter-spacing:.5px}
+#ev-app .brand .dot{color:#F85A20}
+#ev-app .brand .sub{display:block;font-size:11px;color:#9a9a9a;letter-spacing:2px;margin-top:2px;text-transform:uppercase}
+#ev-app .period{font-size:12px;color:#9a9a9a;text-align:right}
+#ev-app .period b{color:#F85A20;font-weight:400}
+#ev-app nav{display:flex;flex-wrap:wrap;gap:4px;padding:12px 22px;background:#1a1a1a;border-bottom:1px solid #2a2a2a}
+#ev-app nav button{font-family:inherit;font-size:12.5px;color:#cfcfcf;background:transparent;
+  border:1px solid transparent;padding:7px 13px;border-radius:8px;cursor:pointer;transition:.15s}
+#ev-app nav button:hover{background:#242424}
+#ev-app nav button.on{background:#F85A20;color:#161616;font-weight:500}
+#ev-app .wrap{padding:24px 26px 30px}
+#ev-app h2{font-size:17px;font-weight:500;margin:0 0 14px;color:#fff}
+#ev-app h3{font-size:13px;font-weight:500;margin:26px 0 10px;color:#F85A20;text-transform:uppercase;letter-spacing:1px}
+#ev-app .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+#ev-app .kpi{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:10px;padding:14px 16px}
+#ev-app .kpi .lab{font-size:11px;color:#9a9a9a;text-transform:uppercase;letter-spacing:1px}
+#ev-app .kpi .val{font-size:23px;font-weight:500;color:#fff;margin-top:6px}
+#ev-app .kpi .val.or{color:#F85A20}
+#ev-app .kpi .sub{font-size:11px;color:#8a8a8a;margin-top:3px}
+#ev-app .flags{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:14px}
+#ev-app .flag{border-radius:10px;padding:13px 15px;border:1px solid}
+#ev-app .flag .n{font-size:22px;font-weight:500}
+#ev-app .flag .t{font-size:11.5px;margin-top:3px;line-height:1.4}
+#ev-app .flag.ec{background:#2a1c12;border-color:#5a3a1c;color:#f0a060}
+#ev-app .flag.re{background:#2a2410;border-color:#5a4e1c;color:#e6cf5a}
+#ev-app .flag.or2{background:#241a24;border-color:#4a2c4a;color:#d48fd4}
+#ev-app .expl{background:#1b1b1b;border:1px solid #2a2a2a;border-left:3px solid #F85A20;
+  border-radius:8px;padding:14px 18px;margin:16px 0 4px;font-size:13px;color:#c8c8c8;line-height:1.6}
+#ev-app .expl b{color:#EDEDED;font-weight:400}
+#ev-app .expl .lab{display:block;font-family:'Sora',sans-serif;font-size:10.5px;color:#F85A20;
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px}
+
+/* ---- barre de qualification empilee ---- */
+#ev-app .bar{display:flex;width:100%;height:34px;border-radius:8px;overflow:hidden;
+  border:1px solid #2a2a2a;margin-top:8px;background:#1f1f1f}
+#ev-app .bar .seg{display:flex;align-items:center;justify-content:center;font-size:12px;
+  font-weight:500;color:#12140f;min-width:0;white-space:nowrap;overflow:hidden}
+#ev-app .bar.mini{height:8px;border-radius:5px;margin:0;max-width:150px;flex:0 0 150px}
+#ev-app .bar.mini .seg{font-size:0}
+#ev-app .barleg{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;font-size:11.5px;color:#9a9a9a}
+#ev-app .barleg span{display:flex;align-items:center;gap:6px}
+#ev-app .barleg i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+/* ---- carte commercial (depliable) ---- */
+#ev-app .com{background:#1b1b1b;border:1px solid #2a2a2a;border-radius:12px;margin-top:10px;overflow:hidden}
+#ev-app .com.open{border-color:#3a3a3a}
+#ev-app .com-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;width:100%;text-align:left;
+  padding:13px 16px;background:#1f1f1f;border:none;border-bottom:1px solid transparent;
+  font-family:inherit;cursor:pointer;transition:background .15s}
+#ev-app .com-head:hover{background:#242424}
+#ev-app .com.open .com-head{border-bottom-color:#2a2a2a}
+#ev-app .chev{color:#8a8a8a;font-size:11px;transition:transform .18s;flex:0 0 auto}
+#ev-app .com.open .chev{transform:rotate(90deg);color:#F85A20}
+#ev-app .com-body{padding:0}
+#ev-app .carto{display:flex;flex-wrap:wrap;gap:10px;padding:14px 16px 4px}
+#ev-app .cstat{flex:1 1 130px;background:#1f1f1f;border:1px solid #2a2a2a;border-radius:9px;padding:9px 12px}
+#ev-app .cstat .l{font-size:10px;color:#8a8a8a;text-transform:uppercase;letter-spacing:1px}
+#ev-app .cstat .v{font-family:'Sora',sans-serif;font-size:16px;font-weight:500;color:#fff;margin-top:3px}
+#ev-app .frisebox{margin:10px 16px 2px;background:#1f1f1f;border:1px solid #2a2a2a;border-radius:9px;padding:10px 12px 4px}
+#ev-app .frise{width:100%;height:132px;display:block}
+#ev-app .depli{display:flex;justify-content:flex-end;margin-top:10px}
+#ev-app .depli button{font-family:inherit;font-size:11.5px;color:#9a9a9a;background:transparent;
+  border:1px solid #2a2a2a;border-radius:7px;padding:5px 11px;cursor:pointer}
+#ev-app .depli button:hover{color:#EDEDED;border-color:#3a3a3a}
+#ev-app .com-nom{font-size:14px;font-weight:500;color:#fff;flex:1 1 180px}
+#ev-app .com-meta{font-size:11.5px;color:#9a9a9a;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+#ev-app .com-meta b{font-weight:500}
+#ev-app .prog{display:flex;align-items:center;gap:4px;font-size:11px;color:#8a8a8a}
+#ev-app .prog i{width:16px;height:16px;border-radius:4px;display:flex;align-items:center;
+  justify-content:center;font-size:10px;font-style:normal;font-weight:600;color:#12140f}
+#ev-app .prog .arw{color:#4a4a4a}
+
+/* ---- dossier client ---- */
+#ev-app .dos{padding:13px 16px 14px;border-bottom:1px solid #232323;border-left:3px solid transparent}
+#ev-app .dos:last-child{border-bottom:none}
+#ev-app .dos-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+#ev-app .dos-nom{font-size:13.5px;font-weight:500;color:#fff}
+#ev-app .rdvpills{display:flex;gap:5px;flex-wrap:wrap}
+#ev-app .pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;padding:2px 8px;
+  border-radius:20px;border:1px solid transparent}
+#ev-app .syn{color:#b4b4b4;font-size:12.5px;line-height:1.55;margin-top:7px}
+#ev-app .syn .d{color:#7a7a7a;font-size:11px;margin-right:6px}
+#ev-app .biz{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:9px;
+  padding-top:9px;border-top:1px dashed #2a2a2a;font-size:12px;color:#9a9a9a}
+#ev-app .biz b{color:#EDEDED;font-weight:500}
+#ev-app .biz .or{color:#F85A20;font-weight:500}
+#ev-app .badge{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:20px;white-space:nowrap}
+#ev-app .b-v{background:#12331f;color:#5dca8a}
+#ev-app .b-e{background:#10222e;color:#5db3e0}
+#ev-app .b-c{background:#2a2410;color:#e6cf5a}
+#ev-app .b-r{background:#331414;color:#e08a8a}
+#ev-app .b-rel{background:#2a2410;color:#e6cf5a}
+#ev-app .b-maj{background:#2a1c12;color:#f0a060}
+#ev-app .b-nq{background:#242424;color:#8a8a8a}
+#ev-app .b-srdv{background:#241a24;color:#d48fd4}
+
+#ev-app .curvebox{background:#1f1f1f;border:1px solid #2a2a2a;border-radius:10px;padding:16px 18px 10px;margin-top:8px}
+#ev-app .curve{width:100%;height:150px;display:block}
+#ev-app table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}
+#ev-app .tscroll{overflow-x:auto}
+#ev-app th{text-align:left;color:#9a9a9a;font-weight:400;font-size:11px;text-transform:uppercase;
+  letter-spacing:.5px;padding:8px 10px;border-bottom:1px solid #2a2a2a;white-space:nowrap}
+#ev-app td{padding:9px 10px;border-bottom:1px solid #232323;vertical-align:middle;color:#EDEDED}
+#ev-app tr:last-child td{border-bottom:none}
+#ev-app .muted{color:#8a8a8a;font-size:12px}
+#ev-app .cli{font-weight:500;color:#fff;font-size:13px}
+#ev-app .foot{padding:14px 26px;background:#1a1a1a;border-top:1px solid #2a2a2a;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:#7a7a7a}
+#ev-app .foot .e{font-size:15px;font-weight:500;color:#ededed}
+#ev-app .foot .e .dot{color:#F85A20}
+</style></head><body>
+<div id="ev-app">
+  <div class="top">
+    <div class="brand">evelyne<span class="dot">.</span>
+      <span class="sub">Suivi accompagnement digital</span></div>
+    <div class="period" id="ev-per"></div>
+  </div>
+  <nav id="ev-nav"></nav>
+  <div class="wrap" id="ev-body"></div>
+  <div class="foot">
+    <span>Réconciliation Airtable × Pilotage projets Est — <span id="ev-gen"></span> · <span id="ev-src"></span></span>
+    <span class="e">evelyne<span class="dot">.</span></span>
+  </div>
+</div>
+<script>
+const D = {"meta": {"periode": "T3 2026", "genere_le": "2026-09-06", "genere_par": "reconcile.py (auto)", "indicateur": "Qualification digitale /3", "couverture_pilotage": {"ancien": 25, "nouveau": 0, "ancien_actif": true, "bascule": "2026-10-01"}, "sources": {"coaching": "Airtable — RDV Terrain (Qualification digitale /3, champ Département)", "business": "Pilotage projets Est — fusion des 2 tableaux (ancien : tags « AD » ; nouveau : case « Journée d'accompagnement »)"}, "regles": {"qualif": {"max": 3, "intitule": "Qualification digitale du RDV", "question": "Le RDV justifiait-il l'intervention du pôle digital ?", "paliers": [{"val": 3, "libelle": "Qualifié", "couleur": "#5dca8a", "fond": "#12331f", "desc": "Vrai besoin digital, stratégie à construire"}, {"val": 2, "libelle": "À moitié qualifié", "couleur": "#e6cf5a", "fond": "#2a2410", "desc": "Potentiel pressenti, besoin encore flou"}, {"val": 1, "libelle": "Non qualifié", "couleur": "#8a8a8a", "fond": "#242424", "desc": "Vendable en direct, intervention non nécessaire"}], "seuil_vert": 2.5, "seuil_ambre": 1.75}, "source_de_verite_statut": "pilotage", "reconciliation": "matching par nom de client normalisé ; pilotage prime sur le statut ; écart signalé si Airtable « en attente » et pilotage « Validé »", "relance": "seuls les RDV à 2/3 et 3/3 sans reco chiffrée sont à relancer ; un 1/3 sans suite est normal"}}, "synthese_globale": "Sur 42 RDV accompagnés, 12 (29 %) présentaient un vrai besoin de stratégie digitale et 14 n'avaient pas besoin de nous : le déplacement est justifié un peu moins d'une fois sur trois, et le sujet du trimestre reste le filtrage en amont, pas la performance des commerciaux. La qualification ne préjuge pas de la conversion, dans les deux sens. Le plus gros ticket signé, Gîtes de France (31 150 €), vient d'un RDV noté 2/3, tandis que quatre RDV parfaitement qualifiés (CNAM en deux temps, Super U Port la Nouvelle, Sport 2000) n'ont toujours aucune ligne au pilotage. Le motif le plus solide du trimestre est le parcours en deux rendez-vous : Hyper U Agde, la Grotte de la Cocalière et le Crédit Municipal de Nîmes montrent tous que le second RDV, celui où l'on présente la reco, est ce qui fait monter la qualification et débloque le chiffrage.", "courbe_annee": [{"periode": "T1 2026", "moyenne": 1.88, "nb_rdv": 8}, {"periode": "T2 2026", "moyenne": 2.08, "nb_rdv": 25}, {"periode": "T3 2026", "moyenne": 1.75, "nb_rdv": 8}], "annee": [{"periode": "T1 2026", "nb_rdv": 8, "ca_signe": 0.0, "marge": 0.0, "ca_attente": 0.0, "nb_recos": 0, "sources": [], "moyenne": 1.88, "nb_qualifies": 2}, {"periode": "T2 2026", "nb_rdv": 25, "ca_signe": 71140.0, "marge": 25546.0, "ca_attente": 106287.0, "nb_recos": 22, "sources": ["ancien"], "moyenne": 2.08, "nb_qualifies": 9}, {"periode": "T3 2026", "nb_rdv": 8, "ca_signe": 0.0, "marge": 0.0, "ca_attente": 19550.0, "nb_recos": 3, "sources": ["ancien"], "moyenne": 1.75, "nb_qualifies": 1}], "departements": [{"id": "po", "libelle": "PO · 66", "zone": "Pyrénées-Orientales", "tag_airtable": "66", "tag_pilotage": "AD 66", "synthese": "Le périmètre le mieux qualifié du suivi (2,50/3, à égalité avec les Grands Comptes) et le mieux converti : 2 dossiers signés sur 4, 24 940 € et 10 070 € de marge. Les deux RDV à 3/3 illustrent les deux issues possibles. Bonjourelec débouche sur le plus gros ticket du périmètre (17 990 €) malgré un rendez-vous très chargé en offres éditeur et beaucoup de besoins captés par une agence parisienne. Transports Pagès, sur une vraie refonte de site face à un ex-client Solocal, reste en attente de retour. Le point de coaching qui revient dans les notes est le même sur les deux : les commerciales ont besoin de s'approprier les offres essentielles pour prendre le lead au lieu de le laisser à l'accompagnant.", "commerciaux": [{"nom": "Patricia VERGES", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 1, "2": 0, "1": 0}, "indice": 3.0, "progression": [{"date": "2026-05-13", "qualif": 3, "client": "BONJOURELEC"}], "ca_signe": 17990.0, "ca_attente": 0, "nb_a_relancer": 0, "dossiers": [{"client": "BONJOURELEC", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-05-13", "qualif": 3, "mention": "Insuffisant", "note20": 11, "synthese": "Vrai enjeu digital local, mais RDV très chargé en offres éditeur : Patricia doit prendre davantage le lead. Beaucoup de besoins gérés par une agence parisienne."}], "reco": {"statut": "Validé", "ca_potentiel": 15000.0, "montant_signe": 17990.0, "marge_eur": 6970.0, "honoraires": 2000.0, "presta": "publishing et community management", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Natasha FURCADE ELIZO", "nb_rdv": 2, "nb_dossiers": 2, "paliers": {"3": 1, "2": 1, "1": 0}, "indice": 2.5, "progression": [{"date": "2026-04-22", "qualif": 2, "client": "JOA CASINO"}, {"date": "2026-05-13", "qualif": 3, "client": "TRANSPORTS PAGES"}], "ca_signe": 6950.0, "ca_attente": 6000.0, "nb_a_relancer": 0, "dossiers": [{"client": "TRANSPORTS PAGES", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-05-13", "qualif": 3, "mention": "À améliorer", "note20": 11, "synthese": "Client très qualifié, en attente du retour. Besoin d'un nouveau site (ancien géré par Solocal)."}], "reco": {"statut": "Envoyé", "ca_potentiel": 6000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "Site web + google ads", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "JOA CASINO", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-04-22", "qualif": 2, "mention": "Satisfaisant", "note20": 18, "synthese": "Vrai brief, délais respectés. Très bon RDV, la cliente a signé 1 mois après."}], "reco": {"statut": "Validé", "ca_potentiel": 12000.0, "montant_signe": 6950.0, "marge_eur": 3100.0, "honoraires": 800.0, "presta": "PM", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Antoine LATORRE", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 1, "1": 0}, "indice": 2.0, "progression": [{"date": "2026-07-02", "qualif": 2, "client": "HOMÉA"}], "ca_signe": 0, "ca_attente": 9550.0, "nb_a_relancer": 0, "dossiers": [{"client": "HOMÉA", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-07-02", "qualif": 2, "mention": "Satisfaisant", "note20": 16, "synthese": "Vrai besoin Google Ads et stratégie digitale. Antoine très à l'aise. Client intéressé, à recontacter vers octobre."}], "reco": {"statut": "Envoyé", "ca_potentiel": 9550.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "GG + SP", "source": "ancien"}, "ecart": false, "a_relancer": false}]}], "recos_orphelines": [], "coaching": {"rdv": [{"commercial": "Antoine LATORRE", "client": "HOMÉA", "date": "2026-07-02", "qualif": 2, "note20": 16, "mention": "Satisfaisant", "synthese": "Vrai besoin Google Ads et stratégie digitale. Antoine très à l'aise. Client intéressé, à recontacter vers octobre.", "a_reco": true, "a_relancer": false}, {"commercial": "Patricia VERGES", "client": "BONJOURELEC", "date": "2026-05-13", "qualif": 3, "note20": 11, "mention": "Insuffisant", "synthese": "Vrai enjeu digital local, mais RDV très chargé en offres éditeur : Patricia doit prendre davantage le lead. Beaucoup de besoins gérés par une agence parisienne.", "a_reco": true, "a_relancer": false}, {"commercial": "Natasha FURCADE ELIZO", "client": "TRANSPORTS PAGES", "date": "2026-05-13", "qualif": 3, "note20": 11, "mention": "À améliorer", "synthese": "Client très qualifié, en attente du retour. Besoin d'un nouveau site (ancien géré par Solocal).", "a_reco": true, "a_relancer": false}, {"commercial": "Natasha FURCADE ELIZO", "client": "JOA CASINO", "date": "2026-04-22", "qualif": 2, "note20": 18, "mention": "Satisfaisant", "synthese": "Vrai brief, délais respectés. Très bon RDV, la cliente a signé 1 mois après.", "a_reco": true, "a_relancer": false}]}, "business": {"recos": [{"client": "JOA CASINO", "statut": "Validé", "ca_potentiel": 12000.0, "montant_signe": 6950.0, "honoraires": 800.0, "marge_eur": 3100.0, "commercial": "Natacha FURCADE ELIZO", "presta": "PM", "source": "ancien", "date": "2026-04-17", "ecart": false, "a_rdv": true}, {"client": "BONJOUR ELEC", "statut": "Validé", "ca_potentiel": 15000.0, "montant_signe": 17990.0, "honoraires": 2000.0, "marge_eur": 6970.0, "commercial": "Patrcia VERGES", "presta": "publishing et community management", "source": "ancien", "date": "2026-05-18", "ecart": false, "a_rdv": true}, {"client": "TRANSPORT PAGÈS", "statut": "Envoyé", "ca_potentiel": 6000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Natacha FURCADE ELIZO", "presta": "Site web + google ads", "source": "ancien", "date": "2026-05-18", "ecart": false, "a_rdv": true}, {"client": "HOMEA", "statut": "Envoyé", "ca_potentiel": 9550.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Antoine LATORRE", "presta": "GG + SP", "source": "ancien", "date": "2026-07-01", "ecart": false, "a_rdv": true}]}}, {"id": "aude", "libelle": "Aude · 11", "zone": "Aude", "tag_airtable": "11", "tag_pilotage": "AD 11", "synthese": "Le plus gros volume de RDV du suivi (9) et zéro signature. Trois RDV qualifiés 3/3 en février, Super U Port la Nouvelle et Sport 2000 en tête, n'ont jamais été chiffrés alors que les notes terrain parlaient de gros potentiel et d'un vrai souhait des décisionnaires. C'est le principal manque à gagner du trimestre. Deuxième signal, récurrent dans les notes : Véronique Lana, présente sur trois RDV, s'est reposée sur l'accompagnant sur Sport 2000 et Casino Gruissan, où toutes les questions digitales venaient de nous. Trois autres RDV (Moulin du Vivier, Hôtellerie de l'Aude, Averoux) étaient à 1/3 sur des sujets très sectoriels : notre présence n'y était pas nécessaire.", "commerciaux": [{"nom": "Audrey LAFORGUE", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 1, "2": 0, "1": 0}, "indice": 3.0, "progression": [{"date": "2026-02-24", "qualif": 3, "client": "SUPER U PORT LA NOUVELLE"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 1, "dossiers": [{"client": "SUPER U PORT LA NOUVELLE", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-02-24", "qualif": 3, "mention": null, "note20": 14, "synthese": "Pure découverte, questions pertinentes, gros potentiel. Grosse proposition à réaliser, vrai souhait des décisionnaires."}], "reco": null, "ecart": false, "a_relancer": true}]}, {"nom": "Syldina DEBROCQ", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 1, "2": 0, "1": 0}, "indice": 3.0, "progression": [{"date": "2026-05-18", "qualif": 3, "client": "MAJ PROSPECTION"}], "ca_signe": 0, "ca_attente": 3900.0, "nb_a_relancer": 0, "dossiers": [{"client": "MAJ PROSPECTION", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-05-18", "qualif": 3, "mention": "À améliorer", "note20": 12.8, "synthese": "Proposition budgétaire à envoyer, RDV de présentation prévu début juin."}], "reco": {"statut": "Envoyé", "ca_potentiel": 3900.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "Site web", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Véronique LANA", "nb_rdv": 4, "nb_dossiers": 4, "paliers": {"3": 1, "2": 3, "1": 0}, "indice": 2.25, "progression": [{"date": "2026-02-24", "qualif": 3, "client": "SPORT 2000"}, {"date": "2026-02-24", "qualif": 2, "client": "CASINO GRUISSAN"}, {"date": "2026-05-18", "qualif": 2, "client": "LM JARDIN"}, {"date": "2026-05-18", "qualif": 2, "client": "MAISON VERTE"}], "ca_signe": 0, "ca_attente": 7000.0, "nb_a_relancer": 2, "dossiers": [{"client": "SPORT 2000", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-02-24", "qualif": 3, "mention": null, "note20": 8.5, "synthese": "Enjeu potentiel mais le client se disperse. Véronique s'est beaucoup reposée sur l'accompagnant. R2 à positionner."}], "reco": null, "ecart": false, "a_relancer": true}, {"client": "CASINO GRUISSAN", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-02-24", "qualif": 2, "mention": null, "note20": 8, "synthese": "Vrai enjeu mais secteur très spécifique (cadre légal). Questions digitales portées par l'accompagnant."}], "reco": null, "ecart": false, "a_relancer": true}, {"client": "LM JARDIN", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-05-18", "qualif": 2, "mention": "À améliorer", "note20": 12, "synthese": "Proposition à chiffrer, client très intéressé (anciennement Solocal). Posture digitale à développer."}], "reco": {"statut": "Envoyé", "ca_potentiel": 7000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "Site web + publishing", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "MAISON VERTE", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-05-18", "qualif": 2, "mention": "Insuffisant", "note20": 11, "synthese": "Vrai enjeu digital mais nécessite une vraie formation aux leviers. Closing en attente d'un 2e RDV technique."}], "reco": {"statut": "En cours", "ca_potentiel": null, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "CM", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Arnaud BOUDET", "nb_rdv": 2, "nb_dossiers": 2, "paliers": {"3": 0, "2": 0, "1": 2}, "indice": 1.0, "progression": [{"date": "2026-02-23", "qualif": 1, "client": "AVEROUX IMMOBILIER BRAM"}, {"date": "2026-02-23", "qualif": 1, "client": "MOULIN DU VIVIER ET LA MAISON DU MEUNIER"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 0, "dossiers": [{"client": "AVEROUX IMMOBILIER BRAM", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-02-23", "qualif": 1, "mention": null, "note20": 9, "synthese": "Enjeu autour du site. Secteur immobilier très spécifique nécessitant un jargon dédié. Nouveau RDV à positionner."}], "reco": null, "ecart": false, "a_relancer": false}, {"client": "MOULIN DU VIVIER ET LA MAISON DU MEUNIER", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-02-23", "qualif": 1, "mention": null, "note20": 12, "synthese": "Leviers bien expliqués. Nouveau RDV à positionner pour présenter la reco. Dubitatif sur le potentiel réel."}], "reco": null, "ecart": false, "a_relancer": false}]}, {"nom": "Marine BERNARD", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 0, "1": 1}, "indice": 1.0, "progression": [{"date": "2026-02-23", "qualif": 1, "client": "HOTELLERIE DE L'AUDE"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 0, "dossiers": [{"client": "HOTELLERIE DE L'AUDE", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-02-23", "qualif": 1, "mention": null, "note20": 13, "synthese": "A mené le RDV, questions pertinentes, R2 positionné. Commercialisation probable. Organisation un peu à l'arrache."}], "reco": null, "ecart": false, "a_relancer": false}]}], "recos_orphelines": [{"client": "TECHNO PISCINE 2", "commercial": "Syldina DEBROCQ", "statut": "Envoyé", "ca_potentiel": 4000.0, "montant_signe": null, "marge_eur": null, "presta": "Site web"}], "coaching": {"rdv": [{"commercial": "Audrey LAFORGUE", "client": "SUPER U PORT LA NOUVELLE", "date": "2026-02-24", "qualif": 3, "note20": 14, "mention": null, "synthese": "Pure découverte, questions pertinentes, gros potentiel. Grosse proposition à réaliser, vrai souhait des décisionnaires.", "a_reco": false, "a_relancer": true}, {"commercial": "Véronique LANA", "client": "SPORT 2000", "date": "2026-02-24", "qualif": 3, "note20": 8.5, "mention": null, "synthese": "Enjeu potentiel mais le client se disperse. Véronique s'est beaucoup reposée sur l'accompagnant. R2 à positionner.", "a_reco": false, "a_relancer": true}, {"commercial": "Arnaud BOUDET", "client": "MOULIN DU VIVIER ET LA MAISON DU MEUNIER", "date": "2026-02-23", "qualif": 1, "note20": 12, "mention": null, "synthese": "Leviers bien expliqués. Nouveau RDV à positionner pour présenter la reco. Dubitatif sur le potentiel réel.", "a_reco": false, "a_relancer": false}, {"commercial": "Marine BERNARD", "client": "HOTELLERIE DE L'AUDE", "date": "2026-02-23", "qualif": 1, "note20": 13, "mention": null, "synthese": "A mené le RDV, questions pertinentes, R2 positionné. Commercialisation probable. Organisation un peu à l'arrache.", "a_reco": false, "a_relancer": false}, {"commercial": "Syldina DEBROCQ", "client": "MAJ PROSPECTION", "date": "2026-05-18", "qualif": 3, "note20": 12.8, "mention": "À améliorer", "synthese": "Proposition budgétaire à envoyer, RDV de présentation prévu début juin.", "a_reco": true, "a_relancer": false}, {"commercial": "Véronique LANA", "client": "LM JARDIN", "date": "2026-05-18", "qualif": 2, "note20": 12, "mention": "À améliorer", "synthese": "Proposition à chiffrer, client très intéressé (anciennement Solocal). Posture digitale à développer.", "a_reco": true, "a_relancer": false}, {"commercial": "Véronique LANA", "client": "MAISON VERTE", "date": "2026-05-18", "qualif": 2, "note20": 11, "mention": "Insuffisant", "synthese": "Vrai enjeu digital mais nécessite une vraie formation aux leviers. Closing en attente d'un 2e RDV technique.", "a_reco": true, "a_relancer": false}, {"commercial": "Arnaud BOUDET", "client": "AVEROUX IMMOBILIER BRAM", "date": "2026-02-23", "qualif": 1, "note20": 9, "mention": null, "synthese": "Enjeu autour du site. Secteur immobilier très spécifique nécessitant un jargon dédié. Nouveau RDV à positionner.", "a_reco": false, "a_relancer": false}, {"commercial": "Véronique LANA", "client": "CASINO GRUISSAN", "date": "2026-02-24", "qualif": 2, "note20": 8, "mention": null, "synthese": "Vrai enjeu mais secteur très spécifique (cadre légal). Questions digitales portées par l'accompagnant.", "a_reco": false, "a_relancer": true}]}, "business": {"recos": [{"client": "MAJ", "statut": "Envoyé", "ca_potentiel": 3900.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Syldina DEBROCQ", "presta": "Site web", "source": "ancien", "date": "2026-05-18", "ecart": false, "a_rdv": true}, {"client": "LM JARDIN", "statut": "Envoyé", "ca_potentiel": 7000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Véronique LANA", "presta": "Site web + publishing", "source": "ancien", "date": "2026-05-18", "ecart": false, "a_rdv": true}, {"client": "MAISON VERTE", "statut": "En cours", "ca_potentiel": null, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Véronique LANA", "presta": "CM", "source": "ancien", "date": "2026-05-18", "ecart": false, "a_rdv": true}, {"client": "TECHNO PISCINE 2", "statut": "Envoyé", "ca_potentiel": 4000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Syldina DEBROCQ", "presta": "Site web", "source": "ancien", "date": "2026-06-09", "ecart": false, "a_rdv": false}]}}, {"id": "herault", "libelle": "Hérault · 34", "zone": "Hérault", "tag_airtable": "34", "tag_pilotage": "AD 34", "synthese": "Volume le plus fort (13 RDV) et qualification la plus basse (1,62/3). Les cinq RDV de Timothé Rodron et Lisa Bourret sont tous à 1/3, tous sur des offres essentielles, avec des décideurs absents ou des enjeux limités à Google : ces déplacements-là n'avaient pas lieu d'être et se traitent par un cadrage en amont. Le contraste est net avec les deux dossiers menés en deux temps. Hyper U Agde, où le client mitigé sur le DTS s'est laissé convaincre par le RCS, monte à 3/3 et signe 13 000 €. CNAM, également 3/3 sur ses deux RDV avec un gros enjeu multi-leviers et une reco présentée, n'a aucune ligne au pilotage : c'est le trou le plus visible du trimestre.", "commerciaux": [{"nom": "NICOLAS VIDAL", "nb_rdv": 3, "nb_dossiers": 2, "paliers": {"3": 2, "2": 0, "1": 1}, "indice": 2.33, "progression": [{"date": "2026-05-26", "qualif": 3, "client": "CNAM"}, {"date": "2026-06-10", "qualif": 3, "client": "CNAM"}, {"date": "2026-10-06", "qualif": 1, "client": "MYDIGITALSCHOOL"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 1, "dossiers": [{"client": "CNAM", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-05-26", "qualif": 3, "mention": "Satisfaisant", "note20": 16, "synthese": "Très bon RDV découverte, gros enjeux digital sur plusieurs leviers."}, {"date": "2026-06-10", "qualif": 3, "mention": "Satisfaisant", "note20": 16, "synthese": "Présentation de la reco issue du RDV découverte, gros enjeu digital, en attente de retour."}], "reco": null, "ecart": false, "a_relancer": true}, {"client": "MYDIGITALSCHOOL", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-10-06", "qualif": 1, "mention": "À améliorer", "note20": 11, "synthese": "Bon RDV mais enjeu digital limité aux offres essentielles."}], "reco": null, "ecart": false, "a_relancer": false}]}, {"nom": "CECILE LE BARS", "nb_rdv": 4, "nb_dossiers": 3, "paliers": {"3": 2, "2": 0, "1": 2}, "indice": 2.0, "progression": [{"date": "2026-05-12", "qualif": 3, "client": "HYPER U AGDE"}, {"date": "2026-05-12", "qualif": 1, "client": "SALON NAUTIQUE AGDE"}, {"date": "2026-05-18", "qualif": 1, "client": "MARIE DE MARSEILLAN"}, {"date": "2026-05-21", "qualif": 3, "client": "HYPER U AGDE"}], "ca_signe": 15050.0, "ca_attente": 4650.0, "nb_a_relancer": 0, "dossiers": [{"client": "HYPER U AGDE", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-05-12", "qualif": 3, "mention": "Satisfaisant", "note20": 15, "synthese": "Client mitigé sur le DTS, proposition RCS qui a séduit."}, {"date": "2026-05-21", "qualif": 3, "mention": "Satisfaisant", "note20": 16, "synthese": "Bon RDV, proposition de reco, à suivre car gros enjeu digital."}], "reco": {"statut": "Validé", "ca_potentiel": 13000.0, "montant_signe": 13000.0, "marge_eur": 3900.0, "honoraires": 0.0, "presta": "PM", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "MARIE DE MARSEILLAN", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-05-18", "qualif": 1, "mention": "À améliorer", "note20": 11, "synthese": "Top RDV, bilan de campagne et proposition sur l'année à venir, mais dispositif essentiel uniquement."}], "reco": {"statut": "Validé", "ca_potentiel": 2050.0, "montant_signe": 2050.0, "marge_eur": null, "honoraires": 100.0, "presta": "PUBLI + Au programme", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "SALON NAUTIQUE AGDE", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-05-12", "qualif": 1, "mention": "À améliorer", "note20": 11, "synthese": "Offres essentielles, 0 complexité pour Cécile. Proposition digitale faite."}], "reco": {"statut": "Envoyé", "ca_potentiel": 4650.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "Publi+display", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Timothé Rodron", "nb_rdv": 3, "nb_dossiers": 3, "paliers": {"3": 0, "2": 0, "1": 3}, "indice": 1.0, "progression": [{"date": "2026-06-24", "qualif": 1, "client": "GT METAUX"}, {"date": "2026-06-24", "qualif": 1, "client": "MAIRIE DE GANGES"}, {"date": "2026-06-24", "qualif": 1, "client": "OFFICE DE TOURISME VALLE DE L'HERAULT"}], "ca_signe": 0, "ca_attente": 3650.0, "nb_a_relancer": 0, "dossiers": [{"client": "GT METAUX", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-06-24", "qualif": 1, "mention": "À améliorer", "note20": 12, "synthese": "Enjeu digital moyen, sur du Google uniquement."}], "reco": {"statut": "Envoyé", "ca_potentiel": 3650.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "GG", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "MAIRIE DE GANGES", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-06-24", "qualif": 1, "mention": "À améliorer", "note20": 10, "synthese": "Enjeu digital intéressant mais offres essentielles uniquement, le maire veut surtout de la visibilité."}], "reco": {"statut": "En cours", "ca_potentiel": 4000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "editeur pour septembre", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "OFFICE DE TOURISME VALLE DE L'HERAULT", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-06-24", "qualif": 1, "mention": "À améliorer", "note20": 10, "synthese": "RDV découverte, enjeu digital très faible. Proposition 2027 sur offres essentielles."}], "reco": {"statut": "En cours", "ca_potentiel": 2000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "editeur pour septembre", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Dorian Brouzet", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 0, "1": 1}, "indice": 1.0, "progression": [{"date": "2026-05-12", "qualif": 1, "client": "MUC MONTPELLIER"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 0, "dossiers": [{"client": "MUC MONTPELLIER", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-05-12", "qualif": 1, "mention": "À améliorer", "note20": 12, "synthese": "Bilan de campagne et prochaine campagne. Catalogue et offres essentielles. Proposition finalement déclinée."}], "reco": {"statut": "Refusé", "ca_potentiel": 6950.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "Publi+display", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Helen Simon", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 0, "1": 1}, "indice": 1.0, "progression": [{"date": "2026-05-12", "qualif": 1, "client": "SUNNY INCH"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 0, "dossiers": [{"client": "SUNNY INCH", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-05-12", "qualif": 1, "mention": "À améliorer", "note20": 10, "synthese": "Grosse découverte, plusieurs besoins dont des vidéos produits, mais pas d'enjeu digital immédiat."}], "reco": {"statut": "Refusé", "ca_potentiel": 4000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "SS+SP", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "LISA BOURRET", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 0, "1": 1}, "indice": 1.0, "progression": [{"date": "2026-07-16", "qualif": 1, "client": "CARREFOUR MARKET SETE"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 0, "dossiers": [{"client": "CARREFOUR MARKET SETE", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-07-16", "qualif": 1, "mention": "À améliorer", "note20": 10, "synthese": "Découverte, décideur absent et mauvaise saisonnalité. RDV en septembre pour la période de Noël."}], "reco": null, "ecart": false, "a_relancer": false}]}], "recos_orphelines": [], "coaching": {"rdv": [{"commercial": "NICOLAS VIDAL", "client": "CNAM RDV 1", "date": "2026-05-26", "qualif": 3, "note20": 16, "mention": "Satisfaisant", "synthese": "Très bon RDV découverte, gros enjeux digital sur plusieurs leviers.", "a_reco": false, "a_relancer": true}, {"commercial": "CECILE LE BARS", "client": "MARIE DE MARSEILLAN", "date": "2026-05-18", "qualif": 1, "note20": 11, "mention": "À améliorer", "synthese": "Top RDV, bilan de campagne et proposition sur l'année à venir, mais dispositif essentiel uniquement.", "a_reco": true, "a_relancer": false}, {"commercial": "Helen Simon", "client": "SUNNY INCH", "date": "2026-05-12", "qualif": 1, "note20": 10, "mention": "À améliorer", "synthese": "Grosse découverte, plusieurs besoins dont des vidéos produits, mais pas d'enjeu digital immédiat.", "a_reco": true, "a_relancer": false}, {"commercial": "Timothé Rodron", "client": "GT METAUX", "date": "2026-06-24", "qualif": 1, "note20": 12, "mention": "À améliorer", "synthese": "Enjeu digital moyen, sur du Google uniquement.", "a_reco": true, "a_relancer": false}, {"commercial": "Timothé Rodron", "client": "OFFICE DE TOURISME VALLE DE L'HERAULT", "date": "2026-06-24", "qualif": 1, "note20": 10, "mention": "À améliorer", "synthese": "RDV découverte, enjeu digital très faible. Proposition 2027 sur offres essentielles.", "a_reco": true, "a_relancer": false}, {"commercial": "Timothé Rodron", "client": "MAIRIE DE GANGES", "date": "2026-06-24", "qualif": 1, "note20": 10, "mention": "À améliorer", "synthese": "Enjeu digital intéressant mais offres essentielles uniquement, le maire veut surtout de la visibilité.", "a_reco": true, "a_relancer": false}, {"commercial": "CECILE LE BARS", "client": "HYPER U AGDE RDV1", "date": "2026-05-12", "qualif": 3, "note20": 15, "mention": "Satisfaisant", "synthese": "Client mitigé sur le DTS, proposition RCS qui a séduit.", "a_reco": true, "a_relancer": false}, {"commercial": "NICOLAS VIDAL", "client": "CNAM RDV 2", "date": "2026-06-10", "qualif": 3, "note20": 16, "mention": "Satisfaisant", "synthese": "Présentation de la reco issue du RDV découverte, gros enjeu digital, en attente de retour.", "a_reco": false, "a_relancer": true}, {"commercial": "LISA BOURRET", "client": "CARREFOUR MARKET SETE", "date": "2026-07-16", "qualif": 1, "note20": 10, "mention": "À améliorer", "synthese": "Découverte, décideur absent et mauvaise saisonnalité. RDV en septembre pour la période de Noël.", "a_reco": false, "a_relancer": false}, {"commercial": "CECILE LE BARS", "client": "HYPER U AGDE RDV 2", "date": "2026-05-21", "qualif": 3, "note20": 16, "mention": "Satisfaisant", "synthese": "Bon RDV, proposition de reco, à suivre car gros enjeu digital.", "a_reco": true, "a_relancer": false}, {"commercial": "CECILE LE BARS", "client": "SALON NAUTIQUE AGDE", "date": "2026-05-12", "qualif": 1, "note20": 11, "mention": "À améliorer", "synthese": "Offres essentielles, 0 complexité pour Cécile. Proposition digitale faite.", "a_reco": true, "a_relancer": false}, {"commercial": "Dorian Brouzet", "client": "MUC MONTPELLIER", "date": "2026-05-12", "qualif": 1, "note20": 12, "mention": "À améliorer", "synthese": "Bilan de campagne et prochaine campagne. Catalogue et offres essentielles. Proposition finalement déclinée.", "a_reco": true, "a_relancer": false}, {"commercial": "NICOLAS VIDAL", "client": "MYDIGITALSCHOOL", "date": "2026-10-06", "qualif": 1, "note20": 11, "mention": "À améliorer", "synthese": "Bon RDV mais enjeu digital limité aux offres essentielles.", "a_reco": false, "a_relancer": false}]}, "business": {"recos": [{"client": "MUC", "statut": "Refusé", "ca_potentiel": 6950.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Dorian Brouzet", "presta": "Publi+display", "source": "ancien", "date": "2026-05-12", "ecart": false, "a_rdv": true}, {"client": "SUNNY INCH", "statut": "Refusé", "ca_potentiel": 4000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Helen SIMON", "presta": "SS+SP", "source": "ancien", "date": "2026-05-12", "ecart": false, "a_rdv": true}, {"client": "SALON NAUTIQUE AGDE", "statut": "Envoyé", "ca_potentiel": 4650.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Cécile LE BARS DEVOS", "presta": "Publi+display", "source": "ancien", "date": "2026-05-12", "ecart": false, "a_rdv": true}, {"client": "HYPER U AGDE", "statut": "Validé", "ca_potentiel": 13000.0, "montant_signe": 13000.0, "honoraires": 0.0, "marge_eur": 3900.0, "commercial": "Cécile LE BARS DEVOS", "presta": "PM", "source": "ancien", "date": "2026-05-12", "ecart": false, "a_rdv": true}, {"client": "MAIRIE DE MARSEILLAN", "statut": "Validé", "ca_potentiel": 2050.0, "montant_signe": 2050.0, "honoraires": 100.0, "marge_eur": null, "commercial": "Cécile LE BARS DEVOS", "presta": "PUBLI + Au programme", "source": "ancien", "date": "2026-05-18", "ecart": false, "a_rdv": true}, {"client": "GT METAUX", "statut": "Envoyé", "ca_potentiel": 3650.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Timothé RODRON", "presta": "GG", "source": "ancien", "date": "2026-06-23", "ecart": false, "a_rdv": true}, {"client": "MAIRIE DE GANGES", "statut": "En cours", "ca_potentiel": 4000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Timothé RODRON", "presta": "editeur pour septembre", "source": "ancien", "date": "2026-06-23", "ecart": false, "a_rdv": true}, {"client": "OFFICE DE TOURISME VALLE DE L'HERAULT", "statut": "En cours", "ca_potentiel": 2000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Timothé RODRON", "presta": "editeur pour septembre", "source": "ancien", "date": "2026-06-23", "ecart": false, "a_rdv": true}]}}, {"id": "gard", "libelle": "Gard · 30", "zone": "Gard", "tag_airtable": "30", "tag_pilotage": "AD 30", "synthese": "Le portefeuille en attente le plus lourd du suivi, 35 100 € envoyés, et aucune signature à ce stade. Florence Barthelemy porte la moitié du périmètre avec un profil constant à 2/3, sur des clients déjà en print à qui elle ouvre le digital. Les deux dossiers en deux rendez-vous racontent la même mécanique : à la Grotte de la Cocalière, le chargé de com est conquis par l'écosystème LinkedIn et DTS Météo mais le patron, peu mature sur le digital, reste à closer ; au Crédit Municipal de Nîmes, le RDV 2 de présentation de reco fait passer la qualification de 2 à 3. Leader Coste et Grand Garage du Sud, tous deux à 2/3, n'ont pas de ligne d'accompagnement au pilotage.", "commerciaux": [{"nom": "FLORENCE BARTHELEMY", "nb_rdv": 5, "nb_dossiers": 4, "paliers": {"3": 1, "2": 4, "1": 0}, "indice": 2.2, "progression": [{"date": "2026-05-28", "qualif": 2, "client": "CAISSE DE CREDIT MUNICIPAL DE NIMES"}, {"date": "2026-06-16", "qualif": 3, "client": "CAISSE DE CREDIT MUNICIPAL DE NIMES"}, {"date": "2026-06-16", "qualif": 2, "client": "GRAND GARAGE DU SUD"}, {"date": "2026-06-16", "qualif": 2, "client": "GRETA DU SUD"}, {"date": "2026-09-06", "qualif": 2, "client": "LEADER COSTE"}], "ca_signe": 0, "ca_attente": 7350.0, "nb_a_relancer": 2, "dossiers": [{"client": "CAISSE DE CREDIT MUNICIPAL DE NIMES", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-05-28", "qualif": 2, "mention": "À améliorer", "note20": 15, "synthese": "Découverte digitale, déjà client print. Identification des besoins, questions très pertinentes."}, {"date": "2026-06-16", "qualif": 3, "mention": "Satisfaisant", "note20": 15, "synthese": "RDV reco, présentation des leviers, en attente de retour. Enjeu digital élevé."}], "reco": {"statut": "Envoyé", "ca_potentiel": 7350.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "PM", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "GRAND GARAGE DU SUD", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-06-16", "qualif": 2, "mention": "Satisfaisant", "note20": 14, "synthese": "Découverte digitale, déjà client print. Reco multi-leviers validée par le client, enjeu digital moyen."}], "reco": null, "ecart": false, "a_relancer": true}, {"client": "GRETA DU SUD", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-06-16", "qualif": 2, "mention": "Satisfaisant", "note20": 14, "synthese": "Bon RDV, découverte de l'enjeu digital et des problématiques."}], "reco": {"statut": "En cours", "ca_potentiel": 18000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "PM  Septembre", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "LEADER COSTE", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-09-06", "qualif": 2, "mention": "Satisfaisant", "note20": 15, "synthese": "Enjeu digital à l'année, argumentaire cohérent. Propal multi-leviers en septembre (campagnes janvier-décembre)."}], "reco": null, "ecart": false, "a_relancer": true}]}, {"nom": "LAETITIA ALBERNHE", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 1, "1": 0}, "indice": 2.0, "progression": [{"date": "2026-07-28", "qualif": 2, "client": "BK GROUPE"}], "ca_signe": 0, "ca_attente": 8000.0, "nb_a_relancer": 0, "dossiers": [{"client": "BK GROUPE", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-07-28", "qualif": 2, "mention": "À améliorer", "note20": 13, "synthese": "RDV qualifié avec enjeu hors offre essentielle, mais client fermé et besoin difficile à cadrer."}], "reco": {"statut": "Envoyé", "ca_potentiel": 8000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "PM", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "NICOLAS MICHAUD", "nb_rdv": 3, "nb_dossiers": 2, "paliers": {"3": 0, "2": 2, "1": 1}, "indice": 1.67, "progression": [{"date": "2026-04-23", "qualif": 2, "client": "GROTTE DE LA COCALIERE"}, {"date": "2026-05-28", "qualif": 2, "client": "GROTTE DE LA COCALIERE"}, {"date": "2026-07-09", "qualif": 1, "client": "NOODLY"}], "ca_signe": 0, "ca_attente": 17750.0, "nb_a_relancer": 0, "dossiers": [{"client": "GROTTE DE LA COCALIERE", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-04-23", "qualif": 2, "mention": "À améliorer", "note20": 13, "synthese": "RDV découverte bien mené, recadrage constant : patron peu à l'aise avec le digital, community manager convaincu."}, {"date": "2026-05-28", "qualif": 2, "mention": "Satisfaisant", "note20": 15, "synthese": "Chargé de com conquis (LinkedIn B2B et DTS Météo). Reste à closer le patron, moins mature."}], "reco": {"statut": "Envoyé", "ca_potentiel": 17750.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "PM", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "NOODLY", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-07-09", "qualif": 1, "mention": "À améliorer", "note20": 11, "synthese": "Bon RDV mais budget client trop serré pour son enjeu."}], "reco": null, "ecart": false, "a_relancer": false}]}, {"nom": "MARCELA RANGEL", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 0, "1": 1}, "indice": 1.0, "progression": [{"date": "2026-07-28", "qualif": 1, "client": "LA BOTTE GARDIANNE"}], "ca_signe": 0, "ca_attente": 2000.0, "nb_a_relancer": 0, "dossiers": [{"client": "LA BOTTE GARDIANNE", "qualif_max": 1, "qualif_derniere": 1, "rdvs": [{"date": "2026-07-28", "qualif": 1, "mention": "À améliorer", "note20": 12, "synthese": "RDV offres essentielles mais enjeu Google détecté et présenté pour le futur."}], "reco": {"statut": "Envoyé", "ca_potentiel": 2000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "Publishing +google", "source": "ancien"}, "ecart": false, "a_relancer": false}]}], "recos_orphelines": [], "coaching": {"rdv": [{"commercial": "FLORENCE BARTHELEMY", "client": "GRETA DU SUD", "date": "2026-06-16", "qualif": 2, "note20": 14, "mention": "Satisfaisant", "synthese": "Bon RDV, découverte de l'enjeu digital et des problématiques.", "a_reco": true, "a_relancer": false}, {"commercial": "FLORENCE BARTHELEMY", "client": "CAISSE DE CREDIT MUNICIPAL DE NIMES RDV 1", "date": "2026-05-28", "qualif": 2, "note20": 15, "mention": "À améliorer", "synthese": "Découverte digitale, déjà client print. Identification des besoins, questions très pertinentes.", "a_reco": true, "a_relancer": false}, {"commercial": "LAETITIA ALBERNHE", "client": "BK GROUPE", "date": "2026-07-28", "qualif": 2, "note20": 13, "mention": "À améliorer", "synthese": "RDV qualifié avec enjeu hors offre essentielle, mais client fermé et besoin difficile à cadrer.", "a_reco": true, "a_relancer": false}, {"commercial": "MARCELA RANGEL", "client": "LA BOTTE GARDIANNE", "date": "2026-07-28", "qualif": 1, "note20": 12, "mention": "À améliorer", "synthese": "RDV offres essentielles mais enjeu Google détecté et présenté pour le futur.", "a_reco": true, "a_relancer": false}, {"commercial": "NICOLAS MICHAUD", "client": "GROTTE DE LA COCALIERE RDV 1", "date": "2026-04-23", "qualif": 2, "note20": 13, "mention": "À améliorer", "synthese": "RDV découverte bien mené, recadrage constant : patron peu à l'aise avec le digital, community manager convaincu.", "a_reco": true, "a_relancer": false}, {"commercial": "FLORENCE BARTHELEMY", "client": "LEADER COSTE", "date": "2026-09-06", "qualif": 2, "note20": 15, "mention": "Satisfaisant", "synthese": "Enjeu digital à l'année, argumentaire cohérent. Propal multi-leviers en septembre (campagnes janvier-décembre).", "a_reco": false, "a_relancer": true}, {"commercial": "FLORENCE BARTHELEMY", "client": "GRAND GARAGE DU SUD", "date": "2026-06-16", "qualif": 2, "note20": 14, "mention": "Satisfaisant", "synthese": "Découverte digitale, déjà client print. Reco multi-leviers validée par le client, enjeu digital moyen.", "a_reco": false, "a_relancer": true}, {"commercial": "NICOLAS MICHAUD", "client": "NOODLY", "date": "2026-07-09", "qualif": 1, "note20": 11, "mention": "À améliorer", "synthese": "Bon RDV mais budget client trop serré pour son enjeu.", "a_reco": false, "a_relancer": false}, {"commercial": "NICOLAS MICHAUD", "client": "GROTTE DE LA COCALIERE RDV2", "date": "2026-05-28", "qualif": 2, "note20": 15, "mention": "Satisfaisant", "synthese": "Chargé de com conquis (LinkedIn B2B et DTS Météo). Reste à closer le patron, moins mature.", "a_reco": true, "a_relancer": false}, {"commercial": "FLORENCE BARTHELEMY", "client": "CAISSE DE CREDIT MUNICIPAL DE NIMES RDV 2", "date": "2026-06-16", "qualif": 3, "note20": 15, "mention": "Satisfaisant", "synthese": "RDV reco, présentation des leviers, en attente de retour. Enjeu digital élevé.", "a_reco": true, "a_relancer": false}]}, "business": {"recos": [{"client": "GROTTE DE LA COCALIERE", "statut": "Envoyé", "ca_potentiel": 17750.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "NICOLAS MICHAUD", "presta": "PM", "source": "ancien", "date": "2026-04-23", "ecart": false, "a_rdv": true}, {"client": "CAISSE DE CREDIT MUNICIPAL DE NIMES", "statut": "Envoyé", "ca_potentiel": 7350.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Florence Barthelemy", "presta": "PM", "source": "ancien", "date": "2026-05-28", "ecart": false, "a_rdv": true}, {"client": "GRETA DU SUD", "statut": "En cours", "ca_potentiel": 18000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Florence Barthelemy", "presta": "PM  Septembre", "source": "ancien", "date": "2026-06-16", "ecart": false, "a_rdv": true}, {"client": "LA BOTTE GARDIANNE", "statut": "Envoyé", "ca_potentiel": 2000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Marcella Rangel", "presta": "Publishing +google", "source": "ancien", "date": "2026-07-21", "ecart": false, "a_rdv": true}, {"client": "BK GROUPE", "statut": "Envoyé", "ca_potentiel": 8000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Laetitita Albernhe", "presta": "PM", "source": "ancien", "date": "2026-07-21", "ecart": false, "a_rdv": true}]}}, {"id": "aveyron", "libelle": "Aveyron · 12", "zone": "Aveyron", "tag_airtable": "12", "tag_pilotage": "AD 12", "synthese": "Petit périmètre (4 RDV) mais la deuxième meilleure qualification du suivi, 2,25/3, avec Marion Fournier sur deux dossiers immobiliers et cuisine bien cadrés, tous deux chiffrés et envoyés. Le point d'attention est Malrieu : la note terrain dit explicitement que la reco a été validée en direct avec la cliente, sur un enjeu de notoriété pour quatre magasins et un dispositif potentiellement duplicable, mais aucune ligne d'accompagnement digital n'existe au pilotage. Sunny House, traité dans l'urgence avec un budget inférieur à la proposition, est dans le même cas. Deux accompagnements réels qui ne se voient pas dans le business.", "commerciaux": [{"nom": "Marion Fournier", "nb_rdv": 2, "nb_dossiers": 2, "paliers": {"3": 1, "2": 1, "1": 0}, "indice": 2.5, "progression": [{"date": "2026-06-30", "qualif": 3, "client": "CUISINE MODEL RODEZ"}, {"date": "2026-06-30", "qualif": 2, "client": "ROQUES IMMOBILIER"}], "ca_signe": 0, "ca_attente": 11987.0, "nb_a_relancer": 0, "dossiers": [{"client": "CUISINE MODEL RODEZ", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-06-30", "qualif": 3, "mention": "Satisfaisant", "note20": 14, "synthese": "R2 propal, prospect qualifié, besoin de com prog et opérations commerciales, proposition en cours."}], "reco": {"statut": "Envoyé", "ca_potentiel": 4000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "PM", "source": "ancien"}, "ecart": false, "a_relancer": false}, {"client": "ROQUES IMMOBILIER", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-06-30", "qualif": 2, "mention": "À améliorer", "note20": 12, "synthese": "Proposition de mensualisation site immo, qualifié sur la boîte immo, proposition en cours."}], "reco": {"statut": "Envoyé", "ca_potentiel": 7987.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "site immo", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Clément FABRE", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 1, "1": 0}, "indice": 2.0, "progression": [{"date": "2026-03-06", "qualif": 2, "client": "MALRIEU"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 1, "dossiers": [{"client": "MALRIEU", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-03-06", "qualif": 2, "mention": null, "note20": 17, "synthese": "Enjeu notoriété sur 4 magasins autour de Toulouse. Reco validée en direct, potentiellement duplicable. Signature."}], "reco": null, "ecart": false, "a_relancer": true}]}, {"nom": "Eva BOUKAMOUN", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 1, "1": 0}, "indice": 2.0, "progression": [{"date": "2026-03-06", "qualif": 2, "client": "SUNNY HOUSE"}], "ca_signe": 0, "ca_attente": 0, "nb_a_relancer": 1, "dossiers": [{"client": "SUNNY HOUSE", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-03-06", "qualif": 2, "mention": null, "note20": 12, "synthese": "Demande en urgence, budget inférieur à la proposition. Bon argumentaire. En attente de confirmation."}], "reco": null, "ecart": false, "a_relancer": true}]}], "recos_orphelines": [], "coaching": {"rdv": [{"commercial": "Marion Fournier", "client": "ROQUES IMMOBILIER", "date": "2026-06-30", "qualif": 2, "note20": 12, "mention": "À améliorer", "synthese": "Proposition de mensualisation site immo, qualifié sur la boîte immo, proposition en cours.", "a_reco": true, "a_relancer": false}, {"commercial": "Clément FABRE", "client": "MALRIEU", "date": "2026-03-06", "qualif": 2, "note20": 17, "mention": null, "synthese": "Enjeu notoriété sur 4 magasins autour de Toulouse. Reco validée en direct, potentiellement duplicable. Signature.", "a_reco": false, "a_relancer": true}, {"commercial": "Eva BOUKAMOUN", "client": "SUNNY HOUSE", "date": "2026-03-06", "qualif": 2, "note20": 12, "mention": null, "synthese": "Demande en urgence, budget inférieur à la proposition. Bon argumentaire. En attente de confirmation.", "a_reco": false, "a_relancer": true}, {"commercial": "Marion Fournier", "client": "CUISINE MODEL RODEZ", "date": "2026-06-30", "qualif": 3, "note20": 14, "mention": "Satisfaisant", "synthese": "R2 propal, prospect qualifié, besoin de com prog et opérations commerciales, proposition en cours.", "a_reco": true, "a_relancer": false}]}, "business": {"recos": [{"client": "CUISINE MODEL RODEZ", "statut": "Envoyé", "ca_potentiel": 4000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Marion Fournier", "presta": "PM", "source": "ancien", "date": "2026-06-10", "ecart": false, "a_rdv": true}, {"client": "ROQUES IMMOBILIER", "statut": "Envoyé", "ca_potentiel": 7987.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Marion Fournier", "presta": "site immo", "source": "ancien", "date": "2026-06-30", "ecart": false, "a_rdv": true}]}}, {"id": "gc", "libelle": "Grands Comptes", "zone": "RDV « 34 2 » · pilotage « AD Autres »", "tag_airtable": "34 2", "tag_pilotage": "AD Autres", "synthese": "Deux dossiers seulement, mais le meilleur ratio du suivi : 2,5/3 de qualification et 71 150 € engagés, dont 31 150 € déjà signés sur Gîtes de France avec 11 576 € de marge. La Caisse d'Épargne du Languedoc, seul 3/3, porte 40 000 € de potentiel avec un client décrit comme enthousiaste et curieux, la décision est de son côté. Un point à arbitrer : sur Gîtes de France, la note terrain dit attendre le bon de commande signé alors que le pilotage a déjà basculé en validé. Le pilotage fait foi, mais l'écart mérite d'être vérifié avant d'annoncer le chiffre.", "commerciaux": [{"nom": "Stéphanie Marines", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 1, "2": 0, "1": 0}, "indice": 3.0, "progression": [{"date": "2026-07-05", "qualif": 3, "client": "CAISSE D'EPARGNE DU LANGUEDOC"}], "ca_signe": 0, "ca_attente": 40000.0, "nb_a_relancer": 0, "dossiers": [{"client": "CAISSE D'EPARGNE DU LANGUEDOC", "qualif_max": 3, "qualif_derniere": 3, "rdvs": [{"date": "2026-07-05", "qualif": 3, "mention": "Satisfaisant", "note20": 13.6, "synthese": "Client enthousiaste et curieux, en attente d'un retour."}], "reco": {"statut": "Envoyé", "ca_potentiel": 40000.0, "montant_signe": null, "marge_eur": null, "honoraires": null, "presta": "PM", "source": "ancien"}, "ecart": false, "a_relancer": false}]}, {"nom": "Marie Chalot", "nb_rdv": 1, "nb_dossiers": 1, "paliers": {"3": 0, "2": 1, "1": 0}, "indice": 2.0, "progression": [{"date": "2026-07-05", "qualif": 2, "client": "GITES DE FRANCE SUD"}], "ca_signe": 31150.0, "ca_attente": 0, "nb_a_relancer": 0, "dossiers": [{"client": "GITES DE FRANCE SUD", "qualif_max": 2, "qualif_derniere": 2, "rdvs": [{"date": "2026-07-05", "qualif": 2, "mention": "Satisfaisant", "note20": 15.2, "synthese": "Proposition validée par le client, en attente du bon de commande retourné signé."}], "reco": {"statut": "Validé", "ca_potentiel": 40000.0, "montant_signe": 31150.0, "marge_eur": 11576.0, "honoraires": 1000.0, "presta": "PM", "source": "ancien"}, "ecart": true, "a_relancer": false}]}], "recos_orphelines": [], "coaching": {"rdv": [{"commercial": "Marie Chalot", "client": "GITES DE FRANCE SUD", "date": "2026-07-05", "qualif": 2, "note20": 15.2, "mention": "Satisfaisant", "synthese": "Proposition validée par le client, en attente du bon de commande retourné signé.", "a_reco": true, "a_relancer": false}, {"commercial": "Stéphanie Marines", "client": "CAISSE D'EPARGNE DU LANGUEDOC", "date": "2026-07-05", "qualif": 3, "note20": 13.6, "mention": "Satisfaisant", "synthese": "Client enthousiaste et curieux, en attente d'un retour.", "a_reco": true, "a_relancer": false}]}, "business": {"recos": [{"client": "CAISSE D'ÉPARGNE LANGUEDOC", "statut": "Envoyé", "ca_potentiel": 40000.0, "montant_signe": null, "honoraires": null, "marge_eur": null, "commercial": "Stéphanie MARINES", "presta": "PM", "source": "ancien", "date": "2026-04-17", "ecart": false, "a_rdv": true}, {"client": "GÎTES DE FRANCE", "statut": "Validé", "ca_potentiel": 40000.0, "montant_signe": 31150.0, "honoraires": 1000.0, "marge_eur": 11576.0, "commercial": "Marie CHALOT", "presta": "PM", "source": "ancien", "date": "2026-04-29", "ecart": true, "a_rdv": true}]}}]};
+const Q = D.meta.regles.qualif;
+const eur = v => (v==null||v===0) ? "—" : v.toLocaleString("fr-FR").replace(/\u202f|\u00a0/g," ")+" €";
+const palier = v => Q.paliers.find(p=>p.val===v);
+function qColor(v){ const p=palier(v); return p?[p.couleur,p.fond]:["#9a9a9a","#242424"]; }
+function moyColor(m){ if(m==null) return "#9a9a9a";
+  if(m>=Q.seuil_vert) return "#5dca8a"; if(m>=Q.seuil_ambre) return "#e6cf5a"; return "#e08a8a"; }
+function statutBadge(s){ const m={"Validé":"b-v","Envoyé":"b-e","En cours":"b-c","Refusé":"b-r"};
+  return `<span class="badge ${m[s]||'b-c'}">${s}</span>`; }
+/* Casse des noms : titre francais, particules en minuscules, sigles preserves. */
+const PARTICULES = new Set(["de","des","du","d","l","et","a","au","aux","en","sur","le","la","les"]);
+const MINUSCULES = new Set(["de","des","du","d","l","et","a","au","aux","en","sur"]);
+const ARTICLES = new Set(["le","la","les"]);
+const SIGLES = new Set(["CNAM","SIVOM","CRGE"]);
+const MOTS_FR = new Set(["SUD","EST","MER","VAL","BAS","VIN","EAU","AIR","BOIS","PONT","RUE"]);
+const bas = w => w.toLowerCase().replace(/[^a-zà-ÿ']/g,"").replace(/'/g,"");
+function motT(w,i,tab){
+  if(SIGLES.has(w)) return w;
+  const lettres = w.replace(/[^A-Za-zÀ-ÿ]/g,"");
+  const b = bas(w);
+  if(w===w.toUpperCase() && lettres.length<=3 && lettres.length>0
+     && !PARTICULES.has(b) && !MOTS_FR.has(w)) return w;
+  if(i>0 && MINUSCULES.has(b)) return w.toLowerCase();
+  if(i>0 && ARTICLES.has(b) && MINUSCULES.has(bas(tab[i-1]||""))) return w.toLowerCase();
+  return w.toLowerCase().replace(/(^|[\s'’-])([a-zà-ÿ])/g,(m,p,c)=>p+c.toUpperCase());
+}
+const T = s => (s||"").replace(/\s*rdv\s*\d*\s*$/gi,"").replace(/\brdv\b/gi,"")
+  .trim().split(/\s+/).filter(Boolean).map(motT).join(" ");
+const moy = a => a.length ? +(a.reduce((x,y)=>x+y,0)/a.length).toFixed(2) : null;
+const jour = d => d ? d.slice(8,10)+"/"+d.slice(5,7) : "";
+function kpiCard(lab,val,cls,sub){ return `<div class="kpi"><div class="lab">${lab}</div>
+  <div class="val ${cls||''}">${val}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`; }
+function encart(lab,txt){ return txt ? `<div class="expl"><span class="lab">${lab}</span>${txt}</div>` : ""; }
+
+/* ---------- barre de qualification empilée ---------- */
+function paliersDe(qs){ return {"3":qs.filter(v=>v===3).length,
+  "2":qs.filter(v=>v===2).length, "1":qs.filter(v=>v===1).length}; }
+function barre(pal, mini){
+  const tot = (pal["3"]||0)+(pal["2"]||0)+(pal["1"]||0);
+  if(!tot) return `<div class="bar${mini?" mini":""}"></div>`;
+  const segs = Q.paliers.map(p=>{
+    const n = pal[String(p.val)]||0;
+    if(!n) return "";
+    const pc = 100*n/tot;
+    return `<div class="seg" style="flex:0 0 ${pc}%;background:${p.couleur}"
+      title="${n} RDV à ${p.val}/3 — ${p.libelle}">${mini?"":(pc>9?n:"")}</div>`;
+  }).join("");
+  return `<div class="bar${mini?" mini":""}">${segs}</div>`;
+}
+function barreLegende(pal){
+  const tot = (pal["3"]||0)+(pal["2"]||0)+(pal["1"]||0) || 1;
+  return `<div class="barleg">${Q.paliers.map(p=>{
+    const n = pal[String(p.val)]||0;
+    return `<span><i style="background:${p.couleur}"></i><b style="color:${p.couleur}">${p.val}/3 ${p.libelle}</b>
+      · ${n} RDV · ${Math.round(100*n/tot)} % · ${p.desc}</span>`;
+  }).join("")}</div>`;
+}
+function progression(pts){
+  if(!pts || pts.length<2) return "";
+  return `<span class="prog">${pts.map((p,i)=>{
+    const [c] = qColor(p.qualif);
+    return (i?'<span class="arw">›</span>':'')+`<i style="background:${c}" title="${jour(p.date)}">${p.qualif}</i>`;
+  }).join("")}</span>`;
+}
+
+/* ---------- dossier client ---------- */
+function dossier(d){
+  const der = d.qualif_derniere!=null ? d.qualif_derniere : d.qualif_max;
+  const [bc] = qColor(der);
+  const pills = d.rdvs.map((r,i)=>{ const[c,bg]=qColor(r.qualif);
+    return `<span class="pill" style="color:${c};background:${bg};border-color:${c}33">
+      ${d.rdvs.length>1?`RDV ${i+1} · `:""}${r.qualif!=null?r.qualif+"/3":"—"}
+      <span style="color:#8a8a8a">${jour(r.date)}</span></span>`; }).join("");
+  const issue = d.reco ? statutBadge(d.reco.statut)
+    : (d.a_relancer ? '<span class="badge b-rel">à relancer</span>'
+                    : '<span class="badge b-nq">sans suite · non qualifié</span>');
+  const maj = d.ecart ? '<span class="badge b-maj">MàJ pilotage</span>' : '';
+  const syn = d.rdvs.filter(r=>r.synthese).map(r=>
+    `<div class="syn">${d.rdvs.length>1?`<span class="d">${jour(r.date)}</span>`:""}${r.synthese}</div>`).join("");
+  let biz = "";
+  if(d.reco){
+    const r=d.reco;
+    biz = `<div class="biz">${r.presta?`<span>${r.presta}</span>`:""}
+      <span>CA potentiel <b>${eur(r.ca_potentiel)}</b></span>
+      ${r.montant_signe?`<span>signé <b class="or">${eur(r.montant_signe)}</b></span>`:""}
+      ${r.marge_eur?`<span>marge <b class="or">${eur(r.marge_eur)}</b></span>`:""}
+      ${r.honoraires?`<span>honoraires <b>${eur(r.honoraires)}</b></span>`:""}</div>`;
+  } else if(d.a_relancer){
+    biz = `<div class="biz"><span style="color:#e6cf5a">Aucune reco chiffrée au pilotage alors que le RDV était qualifié.</span></div>`;
+  }
+  return `<div class="dos" style="border-left-color:${bc}">
+    <div class="dos-head"><span class="dos-nom">${T(d.client)}</span>
+      <span class="rdvpills">${pills}</span>${issue}${maj}</div>
+    ${syn}${biz}</div>`;
+}
+
+/* ---------- cartographie du commercial ---------- */
+function frise(c){
+  const pts = (c.progression||[]).filter(p=>p.date);
+  if(pts.length<2) return "";
+  const n = pts.length;
+  const W=760,H=134,padL=34,padR=22,padT=18,padB=42;
+  const iw=W-padL-padR, ih=H-padT-padB;
+  /* pas de position par date reelle : plusieurs RDV tombent le meme jour et les
+     etiquettes se chevauchent. On espace regulierement dans l'ordre chronologique. */
+  const x = i => n===1 ? padL+iw/2 : padL + i*iw/(n-1);
+  const y = v => padT + ih - ((v-1)/2)*ih;
+  const grid = Q.paliers.map(p=>`<line x1="${padL}" y1="${y(p.val)}" x2="${W-padR}" y2="${y(p.val)}"
+      stroke="#2a2a2a" stroke-width="1"/>
+    <text x="${padL-9}" y="${y(p.val)+4}" fill="${p.couleur}" font-size="10" text-anchor="end">${p.val}</text>`).join("");
+  const path = pts.map((p,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(p.qualif).toFixed(1)}`).join(" ");
+  const large = n>6;
+  const dots = pts.map((p,i)=>{const[c2]=qColor(p.qualif);
+    const nom = T(p.client);
+    const court = nom.length>14 ? nom.slice(0,13)+"…" : nom;
+    return `<circle cx="${x(i).toFixed(1)}" cy="${y(p.qualif).toFixed(1)}" r="5"
+        fill="${c2}" stroke="#1f1f1f" stroke-width="2"><title>${nom} — ${p.qualif}/3 le ${jour(p.date)}</title></circle>
+      ${large?"":`<text x="${x(i).toFixed(1)}" y="${H-21}" fill="#c8c8c8" font-size="9.5"
+        text-anchor="middle">${court}</text>`}
+      <text x="${x(i).toFixed(1)}" y="${H-8}" fill="#7a7a7a" font-size="9.5"
+        text-anchor="middle">${jour(p.date)}</text>`;}).join("");
+  return `<div class="frisebox"><svg class="frise" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
+    role="img" aria-label="Qualification des RDV dans l'ordre chronologique">
+    ${grid}<path d="${path}" fill="none" stroke="#F85A20" stroke-width="2"
+      stroke-linejoin="round" stroke-linecap="round"/>${dots}</svg></div>`;
+}
+function cstat(l,v){ return `<div class="cstat"><div class="l">${l}</div><div class="v">${v}</div></div>`; }
+
+/* ---------- carte commercial (repliee par defaut) ---------- */
+function commercial(c,i,pid){
+  const id = `com-${pid}-${i}`;
+  const n3 = c.paliers["3"]||0;
+  return `<div class="com" id="${id}">
+    <button class="com-head" type="button" aria-expanded="false" aria-controls="${id}-b" data-com="${id}">
+      <span class="chev">▶</span>
+      <span class="com-nom">${T(c.nom)}</span>
+      ${barre(c.paliers,true)}
+      <span class="com-meta">
+        <span>${c.nb_rdv} RDV · ${c.nb_dossiers} dossier${c.nb_dossiers>1?"s":""}</span>
+        <span>indice <b style="color:${moyColor(c.indice)}">${c.indice!=null?c.indice.toFixed(2):"—"}</b>/3</span>
+        ${c.ca_signe?`<span>signé <b style="color:#F85A20">${eur(c.ca_signe)}</b></span>`:""}
+        ${c.ca_attente?`<span>en attente <b>${eur(c.ca_attente)}</b></span>`:""}
+        ${c.nb_a_relancer?`<span class="badge b-rel">${c.nb_a_relancer} à relancer</span>`:""}
+      </span>
+    </button>
+    <div class="com-body" id="${id}-b" hidden>
+      <div class="carto">
+        ${cstat("RDV accompagnés",c.nb_rdv)}
+        ${cstat("Dossiers",c.nb_dossiers)}
+        ${cstat("Qualifiés 3/3",`<span style="color:#5dca8a">${n3}</span> <span style="font-size:12px;color:#8a8a8a">/ ${c.nb_rdv}</span>`)}
+        ${cstat("Indice qualif.",`<span style="color:${moyColor(c.indice)}">${c.indice!=null?c.indice.toFixed(2):"—"}</span> <span style="font-size:12px;color:#8a8a8a">/3</span>`)}
+        ${cstat("CA signé",`<span style="color:#F85A20">${eur(c.ca_signe)}</span>`)}
+        ${cstat("CA en attente",eur(c.ca_attente))}
+      </div>
+      ${frise(c)}
+      ${c.dossiers.map(dossier).join("")}
+    </div>
+  </div>`;
+}
+
+/* ---------- pages ---------- */
+function kpisGlobaux(){
+  let rdv=0,qs=[],signe=0,marge=0,hono=0,attente=0,nSig=0,nEnv=0;
+  D.departements.forEach(d=>{
+    rdv+=d.coaching.rdv.length;
+    d.coaching.rdv.forEach(r=>{ if(r.qualif!=null) qs.push(r.qualif); });
+    d.business.recos.forEach(r=>{
+      if(r.statut==="Validé"){ signe+=r.montant_signe||0; marge+=r.marge_eur||0; hono+=r.honoraires||0; nSig++; }
+      if(r.statut==="Envoyé"){ attente+=r.ca_potentiel||0; nEnv++; }
+    });
+  });
+  const nq=qs.filter(v=>v===3).length;
+  return {rdv,moy:moy(qs),signe,marge,hono,attente,nSig,nEnv,qs,nq,
+          txq:qs.length?Math.round(100*nq/qs.length):0};
+}
+function flagsGlobaux(){
+  let ec=0,rel=0,orph=0;
+  D.departements.forEach(d=>{
+    d.business.recos.forEach(r=>{ if(r.ecart) ec++; if(!r.a_rdv) orph++; });
+    d.coaching.rdv.forEach(r=>{ if(r.a_relancer) rel++; });
+  });
+  return {ec,rel,orph};
+}
+
+function home(){
+  const k=kpisGlobaux(), f=flagsGlobaux();
+  return `<h2>Vue d'ensemble — ${D.departements.length} périmètres</h2>
+  <div class="kgrid">
+    ${kpiCard("RDV accompagnés",k.rdv)}
+    ${kpiCard("RDV qualifiés 3/3",`<span style="color:#5dca8a">${k.nq}</span> <span style="font-size:14px;color:#8a8a8a">/ ${k.rdv}</span>`,"",k.txq+" % du flux")}
+    ${kpiCard("Indice qualif.",`<span style="color:${moyColor(k.moy)}">${k.moy!=null?k.moy.toFixed(2):"—"}</span> <span style="font-size:14px;color:#8a8a8a">/3</span>`)}
+    ${kpiCard("CA signé",eur(k.signe),"or",k.nSig+" reco(s)")}
+    ${kpiCard("Marge dégagée",eur(k.marge),"or")}
+    ${kpiCard("CA en attente",eur(k.attente),"",k.nEnv+" envoyé(s)")}
+  </div>
+  ${barre(paliersDe(k.qs))}${barreLegende(paliersDe(k.qs))}
+  ${encart("Lecture du trimestre", D.synthese_globale)}
+  <h3>Signaux de réconciliation</h3>
+  <div class="flags">
+    <div class="flag ec"><div class="n">${f.ec}</div><div class="t">écart(s) Airtable / pilotage<br>→ badge « MàJ pilotage »</div></div>
+    <div class="flag re"><div class="n">${f.rel}</div><div class="t">RDV qualifié(s) 2/3-3/3 sans reco chiffrée<br>→ manque à gagner, à relancer</div></div>
+    <div class="flag or2"><div class="n">${f.orph}</div><div class="t">reco(s) sans RDV accompagné<br>→ accompagnement non tracé</div></div>
+  </div>
+  <h3>Pipeline par périmètre</h3>
+  <div class="tscroll"><table><thead><tr><th>Périmètre</th><th>RDV</th><th style="min-width:170px">Qualification</th><th>Indice /3</th><th>Signé</th><th>En attente</th><th>À relancer</th></tr></thead><tbody>
+  ${D.departements.map(d=>{
+    const rdv=d.coaching.rdv, recos=d.business.recos;
+    const qq=rdv.filter(r=>r.qualif!=null).map(r=>r.qualif);
+    const m=moy(qq);
+    const sig=recos.filter(r=>r.statut==="Validé");
+    const ca=sig.reduce((a,r)=>a+(r.montant_signe||0),0);
+    const att=recos.filter(r=>r.statut==="Envoyé").reduce((a,r)=>a+(r.ca_potentiel||0),0);
+    const rel=rdv.filter(r=>r.a_relancer).length;
+    return `<tr><td class="cli">${d.libelle}</td><td>${rdv.length}</td>
+      <td>${barre(paliersDe(qq),true)}</td>
+      <td><span style="color:${moyColor(m)}">${m!=null?m.toFixed(2):"—"}</span></td>
+      <td>${eur(ca)}</td><td>${eur(att)}</td>
+      <td>${rel?`<span class="badge b-rel">${rel}</span>`:'<span class="muted">—</span>'}</td></tr>`;
+  }).join("")}
+  </tbody></table></div>`;
+}
+
+function dept(d){
+  const rdv=d.coaching.rdv, recos=d.business.recos;
+  const qs=rdv.filter(r=>r.qualif!=null).map(r=>r.qualif);
+  const m=moy(qs);
+  const sig=recos.filter(r=>r.statut==="Validé");
+  const ca=sig.reduce((a,r)=>a+(r.montant_signe||0),0);
+  const mg=sig.reduce((a,r)=>a+(r.marge_eur||0),0);
+  const att=recos.filter(r=>r.statut==="Envoyé").reduce((a,r)=>a+(r.ca_potentiel||0),0);
+  const coms = d.commerciaux||[];
+  const orph = d.recos_orphelines||[];
+  return `<h2>${d.libelle} <span class="muted">· ${d.zone}</span></h2>
+  <div class="kgrid">
+    ${kpiCard("RDV accompagnés",rdv.length,"",coms.length+" commercial(aux)")}
+    ${kpiCard("RDV qualifiés 3/3",`<span style="color:#5dca8a">${qs.filter(v=>v===3).length}</span> <span style="font-size:14px;color:#8a8a8a">/ ${rdv.length}</span>`)}
+    ${kpiCard("Indice qualif.",`<span style="color:${moyColor(m)}">${m!=null?m.toFixed(2):"—"}</span> <span style="font-size:14px;color:#8a8a8a">/3</span>`)}
+    ${kpiCard("CA signé",eur(ca),"or",mg?"marge "+eur(mg):"")}
+    ${kpiCard("CA en attente",eur(att))}
+  </div>
+  ${qs.length?barre(paliersDe(qs))+barreLegende(paliersDe(qs)):""}
+  ${encart("Lecture du périmètre", d.synthese)}
+  <h3>Pipeline par commercial et par dossier</h3>
+  ${coms.length?`<div class="depli"><button type="button" id="ev-toggle-all">Tout déplier</button></div>`
+    +coms.map((c,i)=>commercial(c,i,d.id)).join("")
+    :'<p class="muted">Aucun RDV accompagné sur la période.</p>'}
+  ${orph.length?`<h3>Recos sans RDV accompagné</h3>
+    <p class="muted">Présentes au pilotage sur ce périmètre, sans RDV correspondant dans Airtable : accompagnement non tracé.</p>
+    <div class="tscroll"><table><thead><tr><th>Client</th><th>Commercial</th><th>Statut</th><th>CA pot.</th><th>Signé</th></tr></thead><tbody>
+    ${orph.map(r=>`<tr><td class="cli">${T(r.client)}</td><td>${T(r.commercial||'')}</td>
+      <td>${statutBadge(r.statut)}</td><td>${eur(r.ca_potentiel)}</td><td>${eur(r.montant_signe)}</td></tr>`).join("")}
+    </tbody></table></div>`:""}`;
+}
+
+function courbe(){
+  const pts = D.courbe_annee || [];
+  if(pts.length<1) return "";
+  const W=760,H=150,padL=38,padR=18,padT=16,padB=32;
+  const iw=W-padL-padR, ih=H-padT-padB;
+  const x = i => pts.length===1 ? padL+iw/2 : padL + i*iw/(pts.length-1);
+  const y = v => padT + ih - ((v-1)/2)*ih;
+  const line = pts.map((p,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(p.moyenne).toFixed(1)}`).join(" ");
+  const grid = [1,2,3].map(v=>`<line x1="${padL}" y1="${y(v)}" x2="${W-padR}" y2="${y(v)}"
+      stroke="#2a2a2a" stroke-width="1"/><text x="${padL-10}" y="${y(v)+4}" fill="#7a7a7a"
+      font-size="10" text-anchor="end">${v}</text>`).join("");
+  const dots = pts.map((p,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(p.moyenne).toFixed(1)}" r="4.5"
+      fill="${moyColor(p.moyenne)}" stroke="#1f1f1f" stroke-width="2"/>
+    <text x="${x(i).toFixed(1)}" y="${(y(p.moyenne)-11).toFixed(1)}" fill="#EDEDED" font-size="11"
+      text-anchor="middle">${p.moyenne.toFixed(2)}</text>
+    <text x="${x(i).toFixed(1)}" y="${H-10}" fill="#9a9a9a" font-size="10.5"
+      text-anchor="middle">${p.periode} · ${p.nb_rdv} RDV</text>`).join("");
+  return `<div class="curvebox"><svg class="curve" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"
+    role="img" aria-label="Qualification moyenne sur 3 par trimestre">
+    ${grid}<path d="${line}" fill="none" stroke="#F85A20" stroke-width="2.2"
+      stroke-linejoin="round" stroke-linecap="round"/>${dots}</svg></div>`;
+}
+
+function annee(){
+  const A = D.annee || [];
+  const CV = D.meta.couverture_pilotage || {};
+  const tot = A.reduce((a,t)=>({rdv:a.rdv+t.nb_rdv, q:a.q+t.nb_qualifies,
+    ca:a.ca+t.ca_signe, mg:a.mg+t.marge, att:a.att+t.ca_attente, rec:a.rec+t.nb_recos}),
+    {rdv:0,q:0,ca:0,mg:0,att:0,rec:0});
+  const src = s => s==="ancien" ? "ancien tableau" : "nouveau tableau";
+  return `<h2>Vue annuelle — cumul ${A.length} trimestre(s)</h2>
+  <div class="expl"><span class="lab">Périmètre des sources</span>La vue annuelle cumule
+  <b>les deux tableaux de pilotage</b>, y compris l'ancien après la bascule du
+  ${CV.bascule||"2026-10-01"}. Les rendus trimestriels, eux, ne prennent plus l'ancien tableau
+  en compte à partir de cette date${CV.ancien_actif===false
+    ? " (bascule effective)" : " (bascule pas encore atteinte)"}.</div>
+  <div class="kgrid">
+    ${kpiCard("RDV accompagnés",tot.rdv)}
+    ${kpiCard("RDV qualifiés 3/3",`<span style="color:#5dca8a">${tot.q}</span> <span style="font-size:14px;color:#8a8a8a">/ ${tot.rdv}</span>`)}
+    ${kpiCard("CA signé cumulé",eur(tot.ca),"or",tot.rec+" reco(s)")}
+    ${kpiCard("Marge cumulée",eur(tot.mg),"or")}
+    ${kpiCard("CA en attente",eur(tot.att))}
+  </div>
+  <h3>Indice de qualification digitale /3</h3>
+  ${courbe()}
+  <h3>Détail par trimestre</h3>
+  <div class="tscroll"><table><thead><tr><th>Trimestre</th><th>RDV</th><th>Qualifiés 3/3</th>
+    <th>Indice /3</th><th>Recos</th><th>Signé</th><th>Marge</th><th>En attente</th><th>Source pilotage</th></tr></thead><tbody>
+  ${A.map(t=>`<tr><td class="cli">${t.periode}</td><td>${t.nb_rdv}</td>
+    <td><span style="color:#5dca8a">${t.nb_qualifies}</span></td>
+    <td><span style="color:${moyColor(t.moyenne)}">${t.moyenne!=null?t.moyenne.toFixed(2):"—"}</span></td>
+    <td>${t.nb_recos||"—"}</td><td>${eur(t.ca_signe)}</td><td>${eur(t.marge)}</td><td>${eur(t.ca_attente)}</td>
+    <td><span class="muted">${t.sources.length?t.sources.map(src).join(" + "):"—"}</span></td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+
+const pages=[{id:"home",lib:"Accueil"},{id:"annee",lib:"Vue annuelle"}].concat(D.departements.map(d=>({id:d.id,lib:d.libelle})));
+function go(id){
+  document.querySelectorAll("#ev-nav button").forEach(b=>b.classList.toggle("on",b.dataset.id===id));
+  const body=document.getElementById("ev-body");
+  body.innerHTML = id==="home" ? home()
+    : id==="annee" ? annee()
+    : dept(D.departements.find(d=>d.id===id));
+  brancher();
+}
+function ouvrir(carte, ouvert){
+  const head = carte.querySelector(".com-head");
+  const corps = carte.querySelector(".com-body");
+  carte.classList.toggle("open", ouvert);
+  head.setAttribute("aria-expanded", ouvert ? "true" : "false");
+  corps.hidden = !ouvert;
+}
+function brancher(){
+  document.querySelectorAll("#ev-body .com-head").forEach(h=>{
+    h.onclick = () => {
+      const carte = h.closest(".com");
+      ouvrir(carte, carte.querySelector(".com-body").hidden);
+    };
+  });
+  const all = document.getElementById("ev-toggle-all");
+  if(all) all.onclick = () => {
+    const cartes = [...document.querySelectorAll("#ev-body .com")];
+    const tout = cartes.every(c=>c.classList.contains("open"));
+    cartes.forEach(c=>ouvrir(c, !tout));
+    all.textContent = tout ? "Tout déplier" : "Tout replier";
+  };
+}
+document.getElementById("ev-per").innerHTML=D.meta.periode+"<br><b>"+D.meta.indicateur+"</b>";
+document.getElementById("ev-gen").textContent="généré le "+D.meta.genere_le;
+const CV=D.meta.couverture_pilotage||{};
+document.getElementById("ev-src").textContent=
+  `pilotage trimestriel : ${CV.ancien||0} ligne(s) ancien tableau + ${CV.nouveau||0} nouveau`
+  + (CV.ancien_actif===false ? " · ancien tableau archivé en Vue annuelle" : "");
+const nav=document.getElementById("ev-nav");
+nav.innerHTML=pages.map(p=>`<button data-id="${p.id}">${p.lib}</button>`).join("");
+nav.querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.id));
+go("home");
+</script></body></html>
